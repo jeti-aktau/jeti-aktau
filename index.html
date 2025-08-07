@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧭 Памятка туриста: Актау | JETI MEIRAMHANA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="preloader.css">
+    <script src="preloader.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'jeti-brown': '#7A4E1D',
+                        'jeti-beige': '#F5F1E8',
+                        'jeti-sand': '#E6D7C3',
+                        'jeti-blue': '#1E3A8A',
+                        'jeti-light-brown': '#A67C52'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .animate-pulse-gentle {
+            animation: pulse-gentle 2s infinite;
+        }
+        @keyframes pulse-gentle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Video background styles */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        /* Hide video controls completely */
+        .hero-video::-webkit-media-controls {
+            display: none !important;
+        }
+        
+        .hero-video::-webkit-media-controls-panel {
+            display: none !important;
+        }
+        
+        /* Hero section positioning */
+        .hero-section {
+            position: relative;
+            z-index: 0;
+        }
+        
+        /* Text shadow for better readability over video */
+        .text-shadow-lg {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .text-shadow-md {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6), 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Enhanced backdrop blur for glass effect */
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Fade in up animation */
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Ensure video covers properly on all devices */
+        @media (max-aspect-ratio: 16/9) {
+            .hero-video {
+                width: auto;
+                height: 100%;
+            }
+        }
+        
+        @media (min-aspect-ratio: 16/9) {
+            .hero-video {
+                width: 100%;
+                height: auto;
+            }
+        }
+        
+        /* Logo styles */
+        .logo-img {
+            height: 2.5rem;
+            width: auto;
+            transition: transform 0.2s ease;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+        
+
+        
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 2rem;
+            }
+        }
+        
+        nav {
+            z-index: 1000 !important;
+        }
+        
+        .navbar-blur {
+            backdrop-filter: blur(20px) saturate(180%);
+            background-color: rgba(245, 241, 232, 0.9);
+            border-bottom: 1px solid rgba(230, 215, 195, 0.3);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 35px -5px rgba(122, 78, 29, 0.15), 0 15px 15px -5px rgba(122, 78, 29, 0.08);
+            z-index: 10;
+        }
+        .card-hover:hover .card-content {
+            transform: scale(1.02);
+        }
+        .card-content {
+            transition: transform 0.3s ease;
+        }
+        .navbar-blur {
+            backdrop-filter: blur(15px) saturate(180%);
+            background-color: rgba(245, 241, 232, 0.95);
+            border-bottom: 1px solid rgba(230, 215, 195, 0.3);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-category-card {
+            height: 400px;
+            cursor: pointer;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .main-category-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .category-card-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+        }
+        
+        .category-content {
+            color: white;
+            width: 100%;
+        }
+        
+        .category-arrow {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        .category-subtitle {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .category-title {
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 1.1;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-category-card {
+                height: 300px;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Раскрывающиеся секции */
+        .expandable-content {
+            transition: max-height 0.3s ease-in-out;
+            overflow: hidden;
+        }
+        
+        .expandable-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="font-inter bg-jeti-beige text-gray-800" data-page="index">
+    <!-- Navigation will be loaded here -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section relative h-screen flex items-center justify-center text-white overflow-hidden">
+        <!-- Video Background -->
+        <video 
+            class="hero-video" 
+            autoplay 
+            muted 
+            loop 
+            playsinline
+            preload="metadata"
+            disablePictureInPicture>
+            <source src="https://dl.dropbox.com/scl/fi/mdxeaeezdqixiw5tlx3nx/document_5404750252165051921.mp4?rlkey=jsecz5ydsrz4pr4tz4oeosuhx&st=40acpy4f&dl=1" type="video/mp4">
+            <!-- Фолбэк для браузеров без поддержки видео -->
+            <div class="absolute inset-0 bg-gradient-to-br from-jeti-brown via-jeti-light-brown to-jeti-sand"></div>
+        </video>
+        
+        <!-- Fallback gradient if video fails to load -->
+        <div class="absolute inset-0 bg-gradient-to-br from-jeti-brown via-jeti-light-brown to-jeti-sand opacity-80" style="z-index: 1;"></div>
+        
+        <!-- Dark overlay for better text readability -->
+        <div class="absolute inset-0 bg-black opacity-40" style="z-index: 2;"></div>
+        
+        <!-- Content -->
+        <div class="relative text-center max-w-6xl mx-auto px-4" style="z-index: 10;">
+                <div class="animate-fade-in-up">
+                <p class="text-lg md:text-xl mb-4 text-shadow-md opacity-90 font-medium">
+                        Добро пожаловать
+                    </p>
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black mb-6 text-shadow-lg tracking-wider leading-none">
+                        В АКТАУ
+                    </h1>
+                <p class="text-lg md:text-xl mb-12 text-shadow-md opacity-90 max-w-3xl mx-auto font-medium">
+                        Актау — город солнца, моря и невероятных пейзажей на берегу Каспийского моря.
+                    </p>
+                    <div class="flex justify-center">
+                        <button class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 px-8 rounded-full text-lg md:text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                            ЗАПЛАНИРУЙ СВОЕ ПУТЕШЕСТВИЕ ↗
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Categories Section -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative" style="z-index: 100;">
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- В городе -->
+            <div class="main-category-card" onclick="window.location.href='city.html'">
+                <div class="category-card-bg" style="background-image: url('https://static.tildacdn.com/tild3234-3261-4437-b362-343963323034/__2025-08-07_143113.png');">
+                    <div class="category-overlay">
+                        <div class="category-content">
+                            <div class="category-arrow">↗</div>
+                            <div class="category-subtitle">Чем заняться</div>
+                            <h2 class="category-title">В ГОРОДЕ</h2>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- За городом -->
+            <div class="main-category-card" onclick="window.location.href='nature.html'">
+                <div class="category-card-bg" style="background-image: url('https://static.tildacdn.com/tild3964-6435-4464-b434-316334623435/__2025-08-07_133504.png');">
+                    <div class="category-overlay">
+                        <div class="category-content">
+                            <div class="category-arrow">↗</div>
+                            <div class="category-subtitle">Чем заняться</div>
+                            <h2 class="category-title">ЗА ГОРОДОМ</h2>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                    
+                        <!-- Куда сходить с детьми -->
+            <div class="main-category-card" onclick="window.location.href='kids.html'">
+                <div class="category-card-bg" style="background-image: url('https://static.tildacdn.com/tild3264-3738-4266-b462-363738323735/__2025-08-07_143341.png');">
+                <div class="category-overlay">
+                        <div class="category-content">
+                            <div class="category-arrow">↗</div>
+                            <div class="category-subtitle">Чем заняться</div>
+                            <h2 class="category-title">КУДА СХОДИТЬ<br>С ДЕТЬМИ</h2>
+                    </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                    
+        <!-- Useful Information Section -->
+        <section class="mt-16 mb-16">
+            <div class="max-w-4xl mx-auto">
+                <!-- Useful Apps -->
+                <div class="bg-white rounded-2xl shadow-lg mb-6 overflow-hidden">
+                    <button onclick="toggleSection('apps')" class="expandable-button w-full px-8 py-6 flex items-center justify-between bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-300">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🧾</span>
+                            <h3 class="text-xl font-bold">ПОЛЕЗНЫЕ ПРИЛОЖЕНИЯ</h3>
+                        </div>
+                        <svg id="apps-arrow" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="apps-content" class="expandable-content hidden px-8 py-6 bg-gray-50">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-2xl">🚕</span>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Такси:</h4>
+                                        <p class="text-gray-600">InDrive, Yandex Go</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-2xl">🗺️</span>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Навигация:</h4>
+                                        <p class="text-gray-600">2GIS</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-2xl">🍔</span>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Доставка:</h4>
+                                        <p class="text-gray-600">Wolt, Glovo, Chocofood, Yandex</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-2xl">🏠</span>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Недвижимость:</h4>
+                                        <p class="text-gray-600">Krisha.kz</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Important Information -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <button onclick="toggleSection('important')" class="expandable-button w-full px-8 py-6 flex items-center justify-between bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 transition-all duration-300">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">⚠️</span>
+                            <h3 class="text-xl font-bold">ВАЖНО ЗНАТЬ</h3>
+                        </div>
+                        <svg id="important-arrow" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="important-content" class="expandable-content hidden px-8 py-6 bg-red-50">
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-red-500">
+                                <span class="text-xl">🏊‍♂️</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Купание в неположенных местах</h4>
+                                    <p class="text-gray-600">— штраф</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-red-500">
+                                <span class="text-xl">📸</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Фото военных объектов</h4>
+                                    <p class="text-gray-600">— запрещено</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-red-500">
+                                <span class="text-xl">🚫</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Вайпы, CBD, марихуана</h4>
+                                    <p class="text-gray-600">— уголовное наказание</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-red-500">
+                                <span class="text-xl">💰</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Штрафы</h4>
+                                    <p class="text-gray-600">мусор, шелуха от семечек, курение</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kazakh Phrases Section -->
+        <section class="mt-16 mb-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gradient-to-br from-jeti-brown via-jeti-light-brown to-jeti-brown rounded-3xl shadow-2xl overflow-hidden relative">
+                    <!-- Декоративный фон -->
+                    <div class="absolute inset-0 opacity-10">
+                        <div class="absolute top-10 left-10 text-6xl">💬</div>
+                        <div class="absolute top-20 right-20 text-4xl">🗣️</div>
+                        <div class="absolute bottom-20 left-20 text-5xl">🇰🇿</div>
+                        <div class="absolute bottom-10 right-10 text-3xl">💭</div>
+                    </div>
+                    
+                    <!-- Контент -->
+                    <div class="relative z-10 p-8 md:p-12">
+                        <div class="text-center mb-10">
+                            <div class="text-6xl mb-4">💬</div>
+                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                                Бытовые фразы на казахском
+                            </h2>
+                            <p class="text-xl text-jeti-sand opacity-90 max-w-2xl mx-auto">
+                                Основные фразы для комфортного общения с местными жителями Актау
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Привет</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Сәлем!</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Спасибо</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Рахмет!</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Как дела?</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Қалыңыз қалай?</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Все в порядке</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Барі жақсы</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">До свидания!</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Сау болыңыз!</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">До скорой встречи</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Кездескенше сау болыңыз!</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Сколько стоит?</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Бағасы қанша?</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Где пляж?</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Жағажай қайда?</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Да</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Иә</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Нет</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Жоқ</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Извините</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Кешіріңіз</div>
+                            </div>
+                            
+                            <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
+                                <div class="phrase-ru text-white text-sm mb-2 opacity-90">Помогите</div>
+                                <div class="phrase-kz text-jeti-sand text-lg font-bold">Көмектесіңіз</div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-8">
+                            <p class="text-jeti-sand text-sm opacity-80">
+                                🎯 Произносите фразы медленно и четко - местные жители всегда рады помочь!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Restaurant Section -->
+        <section class="mt-16">
+            <div class="bg-gradient-to-br from-jeti-brown to-jeti-light-brown text-white rounded-2xl shadow-xl p-8 md:p-12">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="text-6xl mb-6 animate-pulse-gentle">🍽️</div>
+                    <h2 class="text-4xl font-bold mb-4">JETI MEIRAMHANA</h2>
+                    <p class="text-xl mb-6 opacity-90">Откройте вкус Актау с лучшим рестораном города</p>
+                    <div class="grid md:grid-cols-2 gap-8 text-left mb-8">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">🍽️ Наша кухня:</h3>
+                            <ul class="space-y-2 opacity-90">
+                                <li>• Казахская и европейская кухня</li>
+                                <li>• Свежие морепродукты Каспия</li>
+                                <li>• Живая музыка по выходным</li>
+                        </ul>
+                    </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">📍 Контакты:</h3>
+                            <ul class="space-y-2 opacity-90">
+                                <li>📍 30 микрорайон</li>
+                                <li>📞 +7 701 934 44 24</li>
+                                <li>🕐 Ежедневно 12:07 - 00:07</li>
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-xl p-6">
+                        <p class="text-2xl font-bold mb-2">🎫 СКИДКА 10% ПО БУКЛЕТУ!</p>
+                        <p class="opacity-90">Покажите этот сайт и получите скидку на все меню</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h3 class="text-2xl font-bold text-jeti-brown mb-4">Задать вопрос</h3>
+            <form>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Ваше имя</label>
+                    <input type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-jeti-brown">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Вопрос</label>
+                    <textarea rows="4" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-jeti-brown"></textarea>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" id="close-modal" class="px-4 py-2 text-gray-600 hover:text-gray-800">Отмена</button>
+                    <button type="submit" class="px-6 py-2 bg-jeti-brown text-white rounded-lg hover:bg-jeti-light-brown">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Принудительное воспроизведение видео
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.hero-video');
+            if (video) {
+                video.muted = true;
+                video.play().catch(function(error) {
+                    console.log('Автовоспроизведение видео заблокировано:', error);
+                });
+                
+                // Попытка воспроизведения при клике
+                document.addEventListener('click', function() {
+                    if (video.paused) {
+                        video.play().catch(function(error) {
+                            console.log('Не удалось воспроизвести видео:', error);
+                        });
+                    }
+                }, { once: true });
+            }
+        });
+
+        // Функция для раскрытия/скрытия секций
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const arrow = document.getElementById(sectionId + '-arrow');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                content.style.maxHeight = '0px';
+                setTimeout(() => {
+                    content.classList.add('hidden');
+                }, 300);
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+    <script src="navbar-loader.js"></script>
+    <script src="footer-loader.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

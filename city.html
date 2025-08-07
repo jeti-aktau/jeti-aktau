@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>В городе - Актау | JETI MEIRAMHANA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="preloader.css">
+    <script src="preloader.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'jeti-brown': '#7A4E1D',
+                        'jeti-beige': '#F5F1E8',
+                        'jeti-sand': '#E6D7C3',
+                        'jeti-blue': '#1E3A8A',
+                        'jeti-light-brown': '#A67C52'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 35px -5px rgba(122, 78, 29, 0.15), 0 15px 15px -5px rgba(122, 78, 29, 0.08);
+            z-index: 10;
+        }
+        .place-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .place-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .place-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .place-content {
+            padding: 20px;
+        }
+        .place-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        .place-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .place-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-map-location {
+            color: #7A4E1D;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-map-location:hover {
+            border-bottom-color: #7A4E1D;
+            transform: translateX(2px);
+        }
+        .map-icon {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #3B82F6, #1E40AF);
+            border-radius: 50% 50% 50% 0;
+            position: relative;
+            transform: rotate(-45deg);
+            transition: all 0.2s ease;
+        }
+        .map-icon::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .btn-map-location:hover .map-icon {
+            transform: rotate(-45deg) scale(1.1);
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #F4E4BC;
+        }
+        .btn-map {
+            background: #7A4E1D;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-map:hover {
+            background: #A67C52;
+            transform: translateY(-1px);
+        }
+        .btn-map .map-icon {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .btn-map .map-icon::after {
+            background: #7A4E1D;
+        }
+        .btn-map:hover .map-icon {
+            background: white;
+            transform: rotate(-45deg) scale(1.1);
+        }
+        .btn-map:hover .map-icon::after {
+            background: #A67C52;
+        }
+        .navbar-blur {
+            backdrop-filter: blur(10px);
+            background-color: rgba(245, 241, 232, 0.9);
+        }
+        
+        /* Logo styles */
+        .logo-img {
+            height: 2.5rem;
+            width: auto;
+            transition: transform 0.2s ease;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 2rem;
+            }
+        }
+
+    </style>
+</head>
+<body class="font-inter bg-jeti-beige text-gray-800" data-page="city">
+    <!-- Navigation will be loaded here -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-16 bg-gradient-to-br from-jeti-beige via-jeti-sand to-jeti-beige">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-jeti-brown mb-4">
+                    В городе
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700 mb-8">
+                    Лучшие места для отдыха и развлечений в Актау
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <!-- Пляжи Актау -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">🏖️ Пляжи Актау</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6163-3931-4939-a135-666135643235/photo_2025-08-07_12-.jpg');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Пляж Маракеш</h3>
+                        <p class="place-description">Один из лучших пляжей в черте города, расположенный в 1 микрорайоне. Идеальное место для семейного отдыха с чистым песком и развитой инфраструктурой для комфортного времяпровождения.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">1Б микрорайон</span>
+                            <a href="https://go.2gis.com/fSyJO" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6134-3963-4063-b938-663031333434/photo_2025-08-07_12-.jpg');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Пляж Достар</h3>
+                        <p class="place-description">Популярный городской пляж в 1 микрорайоне с отличной инфраструктурой. Здесь можно провести весь день, наслаждаясь солнцем, морем и удобствами современного пляжного отдыха.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">Прибрежная зона, 1/1</span>
+                            <a href="https://go.2gis.com/MNoVx" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3536-6531-4333-b163-653737363939/photo_2025-08-07_12-.jpg');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Набережная</h3>
+                        <p class="place-description">Прекрасное место для прогулок в 15 микрорайоне. Красивая набережная протяженностью несколько километров с видами на Каспийское море, идеальная для вечерних прогулок и фотосессий.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">15 микрорайон</span>
+                            <a href="https://go.2gis.com/RJS9A" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Рестораны и кафе -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">🍽️ Рестораны и кафе</h2>
+            </div>
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3334-6166-4238-a138-363431373732/photo_2025-08-07_12-.jpg');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">JETI</h3>
+                        <p class="place-description">Казахская и авторская кухня в уютной атмосфере. Свежие морепродукты, локальные блюда и панорамный вид на море.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">30 мкр, 181 | +7 701 934 44 24</span>
+                            <a href="https://2gis.kz/aktau/firm/70000001096234441" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3639-3166-4033-b032-373230313164/photo_2025-08-07_12-.jpg');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Бархан</h3>
+                        <p class="place-description">Самые вкусные бургеры в Актау! Сочные котлеты, свежие булочки и уникальные соусы. Популярное место среди молодежи и любителей качественного фаст-фуда.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">+7 701 000 00 30</span>
+                            <a href="https://2gis.kz/aktau/firm/70000001028544273?m=51.164301%2C43.638787%2F16" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6233-6562-4363-a633-363633613830/photo_2025-08-07_12-.jpg');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Koktem Cafe</h3>
+                        <p class="place-description">Кофейня и десерты в уютной атмосфере. Идеальное место для встреч с друзьями или работы в спокойной обстановке.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">19 мкр | +7 776 029 63 03</span>
+                            <a href="https://2gis.kz/aktau/firm/70000001089806061?m=51.15173%2C43.679917%2F16" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6431-6139-4833-b136-626530386265/photo_2025-08-07_12-.jpg');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Barashka Dine&Drink</h3>
+                        <p class="place-description">Азербайджанская и средиземноморская кухня в стильном интерьере. Изысканные блюда, отличное вино и теплая атмосфера для незабываемого ужина.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">+7 700 444 07 71</span>
+                            <a href="https://2gis.kz/aktau/firm/70000001033955631?m=51.176961%2C43.642602%2F16" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3332-6361-4262-b664-323431363634/photo_2025-08-07_12-.jpg');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Chechil Pub</h3>
+                        <p class="place-description">Вечер с живой музыкой в уютной атмосфере паба. Отличное место для отдыха с друзьями, качественные напитки и регулярные концерты.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">7а мкр | +7 707 907 60 27</span>
+                            <a href="https://2gis.kz/aktau/firm/70000001028527534?m=51.151283%2C43.643676%2F16" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Отдых с детьми -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">👧 Отдых с детьми</h2>
+            </div>
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3236-3536-4562-b735-643066636262/__2025-08-07_130449.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">My Kids</h3>
+                        <p class="place-description">Детский развлекательный центр в ТРК «Актау». Современные игровые автоматы, безопасные аттракционы и игровые зоны для детей всех возрастов. 16 мкр | +7 708 058 04 72</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​ТРК Актау​16-й микрорайон, 4​ 2 этаж</span>
+                            <a href="https://go.2gis.com/mnHzX" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6663-3961-4537-a565-373564326462/__2025-08-07_131934.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Kids Park</h3>
+                        <p class="place-description">Современный детский парк в БЦ Urban с разнообразными аттракционами и игровыми зонами. Безопасная среда для активного отдыха детей. 17 мкр | +7 700 659 05 68</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​БЦ Urban​17-й микрорайон, 22 ​5 этаж</span>
+                            <a href="https://go.2gis.com/NgvJH" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3663-6333-4038-a635-393136363033/__2025-08-07_132111.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Парк аттракционов Сказка</h3>
+                        <p class="place-description">Волшебный мир развлечений для всей семьи в 5а микрорайоне. Множество аттракционов, игровых площадок и сказочная атмосфера для незабываемых детских воспоминаний. +7 702 593 00 00</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​5а микрорайон, 2</span>
+                            <a href="https://go.2gis.com/nH3gl" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6562-3234-4236-b634-336137353463/__2025-08-07_140016.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Большой аквариум с рыбами осетровых пород</h3>
+                        <p class="place-description">Экскурсия</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">4а микрорайон, 39 отель Caspian Riviera</span>
+                            <a href="https://go.2gis.com/BS1Na" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- � Где купить сувениры -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">🛍 Где купить сувениры</h2>
+            </div>
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6132-3437-4362-b664-306465383466/__2025-08-07_141021.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Желтый рынок</h3>
+                        <p class="place-description">Большой рынок в городе Актау</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​31-й микрорайон, 1</span>
+                            <a href="https://go.2gis.com/iF7JI" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3961-6336-4364-a633-366565376433/__2025-08-07_141304.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">ТРК Aktau</h3>
+                        <p class="place-description">​Торгово-развлекательный центр</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​16-й микрорайон, 4</span>
+                            <a href="https://go.2gis.com/Is2HX" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3530-3637-4833-b034-306439373834/__2025-08-07_141437.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">ТЦ SHUM</h3>
+                        <p class="place-description">​Торговый центр</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​4-й микрорайон, 74</span>
+                            <a href="https://go.2gis.com/ZOOKV" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6335-3535-4335-b239-636432353537/__2025-08-07_141616.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">ТЦ Saya Park</h3>
+                        <p class="place-description">​Торговый центр</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​10-й микрорайон, 3</span>
+                            <a href="https://go.2gis.com/E8Fya" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- � Обмен валют -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">💱 Обмен валют</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3537-3165-4566-a437-653239623239/__2025-08-07_142437.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">YES Exchange</h3>
+                        <p class="place-description">Обмен валют</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">Международный аэропорт г.Актау</span>
+                            <a href="https://go.2gis.com/bvZ0f" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3535-3036-4532-a265-303962613435/__2025-08-07_142609.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Golden Partners</h3>
+                        <p class="place-description">Обмен валют</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​6-й микрорайон, 36</span>
+                            <a href="https://go.2gis.com/rdlhl" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- � Уход за собой -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">💇 Уход за собой</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6636-6665-4934-b337-323032666562/__2025-08-07_152409.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Zefir</h3>
+                        <p class="place-description">Салон красоты</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">ТРК «Актау»  +7 701 934 44 54</span>
+                            <a href="https://go.2gis.com/YxoGK" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3638-3733-4431-a236-333666643465/__2025-08-07_152603.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Dental Art Studio</h3>
+                        <p class="place-description">Стоматология</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​ЖК Caspyi Towers​17-й микрорайон, 5</span>
+                            <a href="https://go.2gis.com/8nPSC" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3662-3534-4161-b136-383161663762/__2025-08-07_152741.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Dr.Omarov</h3>
+                        <p class="place-description">Стоматология</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​ЖК Premium Plaza​18а микрорайон, 2</span>
+                            <a href="https://go.2gis.com/9O8TB" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- � Полезные контакты -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">🏥 Полезные контакты</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6134-3131-4764-a464-616265353861/__2025-08-07_153004.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Sofie MedGroup</h3>
+                        <p class="place-description">​Многопрофильная клиника</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​Больничный городок 1​1а микрорайон, 6</span>
+                            <a href="https://go.2gis.com/PB6qH" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6461-3932-4539-a639-633333663531/__2025-08-07_153209.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Нейрон</h3>
+                        <p class="place-description">​Многопрофильная клиника</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​1Б микрорайон, 3</span>
+                            <a href="https://go.2gis.com/bLeex" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6236-3430-4561-b465-393866333562/__2025-08-07_153336.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Денсаулық</h3>
+                        <p class="place-description">​Медицинский центр</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">​Больничный городок 2 ​26-й микрорайон, 71</span>
+                            <a href="https://go.2gis.com/f4dQ0" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="navbar-loader.js"></script>
+    <script src="footer-loader.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

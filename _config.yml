@@ -1,0 +1,20 @@
+# GitHub Pages конфигурация
+title: JETI - Туристический гид по Актау
+description: Интерактивный веб-буклет для туристов города Актау, Казахстан
+url: "https://yourusername.github.io"
+baseurl: "/jeti-aktau"
+
+# Настройки
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Плагины
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Исключения
+exclude:
+  - README.md
+  - .gitignore

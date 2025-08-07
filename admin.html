@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Админ панель - JETI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="preloader.css">
+    <script src="preloader.js"></script>
+    <style>
+        :root {
+            --jeti-brown: #8B4513;
+            --jeti-light-brown: #D2B48C;
+            --jeti-sand: #F4E4BC;
+            --jeti-beige: #F5F5DC;
+        }
+        
+        .text-jeti-brown { color: var(--jeti-brown); }
+        .bg-jeti-brown { background-color: var(--jeti-brown); }
+        .text-jeti-light-brown { color: var(--jeti-light-brown); }
+        .bg-jeti-light-brown { background-color: var(--jeti-light-brown); }
+        .text-jeti-sand { color: var(--jeti-sand); }
+        .bg-jeti-sand { background-color: var(--jeti-sand); }
+        .bg-jeti-beige { background-color: var(--jeti-beige); }
+        
+        .admin-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-preview {
+            width: 100%;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .btn-primary {
+            background: var(--jeti-brown);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--jeti-light-brown);
+        }
+        
+        .btn-secondary {
+            background: #6B7280;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #4B5563;
+        }
+        
+        .btn-success {
+            background: #10B981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+        }
+        
+        .btn-danger {
+            background: #EF4444;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-danger:hover {
+            background: #DC2626;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--jeti-brown);
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.1);
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--jeti-brown);
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.1);
+        }
+        
+        .tab-button {
+            padding: 12px 24px;
+            border: none;
+            background: #F3F4F6;
+            color: #6B7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .tab-button.active {
+            background: var(--jeti-brown);
+            color: white;
+        }
+        
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 100;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.success {
+            background: #10B981;
+        }
+        
+        .notification.error {
+            background: #EF4444;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-jeti-brown text-white py-4 mb-8">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">🔧 Админ панель JETI</h1>
+            <a href="index.html" class="bg-jeti-light-brown hover:bg-jeti-sand text-white hover:text-jeti-brown px-4 py-2 rounded-lg transition-colors">
+                🏠 На сайт
+            </a>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 mb-8">
+        <div class="flex space-x-2">
+            <button class="tab-button active" onclick="switchTab('city')">🏙️ В городе</button>
+            <button class="tab-button" onclick="switchTab('nature')">🏔️ За городом</button>
+            <button class="tab-button" onclick="switchTab('kids')">👶 С детьми</button>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-7xl mx-auto px-4">
+        <!-- City Tab -->
+        <div id="city-tab" class="tab-content">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-jeti-brown">Управление карточками - В городе</h2>
+                <p class="text-gray-600 mt-2">Управляйте карточками по категориям. Кнопки добавления появятся под каждой категорией.</p>
+                <button class="btn-primary mt-4" onclick="adminPanel.openAddCategoryModal('city')">
+                    ➕ Добавить новую категорию
+                </button>
+            </div>
+            <div id="city-cards" class="grid gap-6">
+                <!-- Карточки будут загружены сюда -->
+            </div>
+        </div>
+
+        <!-- Nature Tab -->
+        <div id="nature-tab" class="tab-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-jeti-brown">Управление карточками - За городом</h2>
+                <p class="text-gray-600 mt-2">Управляйте карточками по категориям. Кнопки добавления появятся под каждой категорией.</p>
+                <button class="btn-primary mt-4" onclick="adminPanel.openAddCategoryModal('nature')">
+                    ➕ Добавить новую категорию
+                </button>
+            </div>
+            <div id="nature-cards" class="grid gap-6">
+                <!-- Карточки будут загружены сюда -->
+            </div>
+        </div>
+
+        <!-- Kids Tab -->
+        <div id="kids-tab" class="tab-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-jeti-brown">Управление карточками - С детьми</h2>
+                <p class="text-gray-600 mt-2">Управляйте карточками по категориям. Кнопки добавления появятся под каждой категорией.</p>
+                <button class="btn-primary mt-4" onclick="adminPanel.openAddCategoryModal('kids')">
+                    ➕ Добавить новую категорию
+                </button>
+            </div>
+            <div id="kids-cards" class="grid gap-6">
+                <!-- Карточки будут загружены сюда -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold text-jeti-brown mb-4">Добавить новую категорию</h3>
+            <form id="addCategoryForm">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Название категории</label>
+                    <input type="text" id="categoryName" class="form-input" placeholder="🏖️ Пляжи и отдых" required>
+                    <small style="color: #666; font-size: 12px;">
+                        💡 Используйте эмодзи в начале для красивого отображения (🏖️, 🍽️, 🎢, ⛰️ и т.д.)
+                    </small>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Описание (опционально)</label>
+                    <textarea id="categoryDescription" class="form-textarea" placeholder="Краткое описание категории"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" class="btn-secondary" onclick="adminPanel.closeAddCategoryModal()">Отмена</button>
+                    <button type="submit" class="btn-success">Создать категорию</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold text-jeti-brown mb-4">Редактировать карточку</h3>
+            <form id="editForm">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Название</label>
+                    <input type="text" id="editTitle" class="form-input" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Описание</label>
+                    <textarea id="editDescription" class="form-textarea" required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">URL изображения</label>
+                    <input type="url" id="editImage" class="form-input" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Адрес/Контакты</label>
+                    <input type="text" id="editAddress" class="form-input">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Ссылка на карту</label>
+                    <input type="url" id="editMapLink" class="form-input" placeholder="https://maps.google.com/... или https://yandex.ru/maps/...">
+                    <small style="color: #666; font-size: 12px;">
+                        📍 Вставьте ссылку на Google Maps или Яндекс.Карты для этого заведения
+                    </small>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Отмена</button>
+                    <button type="submit" class="btn-success">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Save Changes Controls -->
+    <div class="fixed bottom-6 right-6 flex flex-col space-y-3">
+        <button id="testBtn" class="btn-secondary shadow-lg" onclick="adminPanel.testGeneration()">
+            🧪 Тест генерации
+        </button>
+        <div id="saveControls" class="flex flex-col space-y-2" style="display: none;">
+            <select id="pageSelect" class="form-input shadow-lg">
+                <option value="">Выберите страницу для сохранения</option>
+                <option value="city">🏖️ В городе</option>
+                <option value="nature">⛰️ За городом</option>
+                <option value="kids">👶 С детьми</option>
+                <option value="all">💾 Все страницы</option>
+            </select>
+            <button id="saveBtn" class="btn-success shadow-lg" onclick="saveSelectedPage()" disabled>
+                💾 Сохранить
+            </button>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

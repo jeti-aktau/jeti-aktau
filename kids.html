@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Куда сходить с детьми в Актау | JETI Туристический буклет</title>
+    <meta name="description" content="Лучшие места для отдыха с детьми в Актау и окрестностях - парки, аквапарки, развлекательные центры">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="preloader.css">
+    <script src="preloader.js"></script>
+    <style>
+        :root {
+            --jeti-brown: #8B4513;
+            --jeti-light-brown: #D2B48C;
+            --jeti-sand: #F4E4BC;
+            --jeti-beige: #F5F5DC;
+        }
+        
+        .text-jeti-brown { color: var(--jeti-brown); }
+        .bg-jeti-brown { background-color: var(--jeti-brown); }
+        .text-jeti-light-brown { color: var(--jeti-light-brown); }
+        .bg-jeti-light-brown { background-color: var(--jeti-light-brown); }
+        .text-jeti-sand { color: var(--jeti-sand); }
+        .bg-jeti-sand { background-color: var(--jeti-sand); }
+        .bg-jeti-beige { background-color: var(--jeti-beige); }
+        .hover\\:text-jeti-sand:hover { color: var(--jeti-sand); }
+        .hover\\:text-jeti-light-brown:hover { color: var(--jeti-light-brown); }
+
+        .place-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .place-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .place-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .place-content {
+            padding: 20px;
+        }
+        .place-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        .place-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .place-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-map-location {
+            color: #7A4E1D;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-map-location:hover {
+            border-bottom-color: #7A4E1D;
+            transform: translateX(2px);
+        }
+        .map-icon {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #3B82F6, #1E40AF);
+            border-radius: 50% 50% 50% 0;
+            position: relative;
+            transform: rotate(-45deg);
+            transition: all 0.2s ease;
+        }
+        .map-icon::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+        }
+        .btn-map-location:hover .map-icon {
+            transform: rotate(-45deg) scale(1.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #F4E4BC;
+        }
+
+        .btn-map {
+            @apply inline-flex items-center space-x-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200;
+            @apply bg-jeti-brown text-white hover:bg-jeti-light-brown hover:scale-105 shadow-lg;
+        }
+
+        .hero-kids {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+                             url('https://static.tildacdn.com/tild3264-3738-4266-b462-363738323735/__2025-08-07_143341.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Logo styles */
+        .logo-img {
+            height: 2.5rem;
+            width: auto;
+            transition: transform 0.2s ease;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 2rem;
+            }
+        }
+
+        .navbar-blur {
+            backdrop-filter: blur(10px);
+            background-color: rgba(245, 241, 232, 0.9);
+        }
+
+    </style>
+</head>
+<body class="bg-jeti-beige min-h-screen" data-page="kids">
+    <!-- Navigation will be loaded here -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-kids text-white pt-20 pb-20">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <div class="text-6xl mb-6 animate-bounce">🎈</div>
+            <h1 class="text-5xl font-bold mb-6">Куда сходить с детьми</h1>
+            <p class="text-xl opacity-90 max-w-2xl mx-auto">
+                Лучшие места для семейного отдыха в Актау и окрестностях. 
+                Развлечения, которые понравятся и детям, и взрослым!
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <!-- В городе - Детские развлечения -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">В городе - Детские развлечения</h2>
+            </div>
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3731-3230-4639-b135-323563393939/__2025-08-07_160403.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Страус-ферма</h3>
+                        <p class="place-description">Уникальная возможность познакомиться с экзотическими птицами, покормить страусов и узнать много интересного о их жизни.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">Промзона 6  | +7 701 743 53 06</span>
+                            <a href="https://go.2gis.com/LHiNg" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6165-6361-4565-a436-323066623262/__2025-08-07_160538.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">My Kids</h3>
+                        <p class="place-description">Современный детский развлекательный центр с безопасными аттракционами, игровыми зонами и кафе для всей семьи. </p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">ТРК «Актау», 16 мкр | +7 708 058 04 72</span>
+                            <a href="https://go.2gis.com/BrYCO" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6663-3961-4537-a565-373564326462/__2025-08-07_131934.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Kids Park</h3>
+                        <p class="place-description">Игровой парк с разнообразными активностями для детей разных возрастов. Безопасное и яркое пространство для веселого времяпрепровождения. </p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">БЦ Urban, 17 мкр | +7 700 659 05 68</span>
+                            <a href="https://go.2gis.com/tEW9I" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3663-6333-4038-a635-393136363033/__2025-08-07_132111.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Парк аттракционов Сказка</h3>
+                        <p class="place-description">Волшебный мир аттракционов для маленьких мечтателей. Карусели, качели и множество других развлечений в сказочной атмосфере.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">5а мкр | +7 702 593 00 00</span>
+                            <a href="https://go.2gis.com/69MQr" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3966-6436-4164-b561-303035376362/__2025-08-07_161310.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Парк Ақбота</h3>
+                        <p class="place-description">Популярный городской парк с аттракционами и игровыми автоматами. Отличное место для прогулок и активного отдыха всей семьей.</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">4а микрорайон, 18/3 киоск</span>
+                            <a href="https://go.2gis.com/IoUTj" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3430-6435-4765-a135-303961653534/__2025-08-07_161454.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Аквапарк Laguna</h3>
+                        <p class="place-description">Современный аквапарк с горками, бассейнами и водными развлечениями для всех возрастов. Идеальное место для освежающего отдыха. </p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">Самал 2 | +7 705 555 28 28</span>
+                            <a href="https://go.2gis.com/yfmWb" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Открытые бассейны -->
+        <section class="mb-16">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-jeti-brown">🏊‍♀️ Открытые бассейны</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild3738-3334-4566-b662-633035626164/__2025-08-07_161742.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Бассейн ТРК Актау</h3>
+                        <p class="place-description">Открытый бассейн в торгово-развлекательном комплексе с детской зоной и современными удобствами</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">16 мкр, ТРК Актау</span>
+                            <a href="https://go.2gis.com/yfL8x" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card">
+                    <div class="place-image" style="background-image: url('https://static.tildacdn.com/tild6135-6335-4035-b762-643836623666/__2025-08-07_161616.png');"></div>
+                    <div class="place-content">
+                        <h3 class="place-title">Санаторий Шагала</h3>
+                        <p class="place-description">Открытый бассейн на территории санатория с лечебными и оздоровительными процедурами</p>
+                        <div class="place-actions">
+                            <span class="text-sm text-gray-500">1 мкр, санаторий Шагала</span>
+                            <a href="https://go.2gis.com/BgDo4" class="btn-map-location" target="_blank">
+                                <div class="map-icon"></div>
+                                Посмотреть на карте
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="navbar-loader.js"></script>
+    <script src="footer-loader.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

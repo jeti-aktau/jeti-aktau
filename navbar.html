@@ -1,0 +1,157 @@
+<!-- Navigation Component -->
+<nav class="fixed top-0 w-full z-50 navbar-blur border-b border-jeti-sand">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="IMG_9458.PNG" alt="JETI" class="logo-img">
+                </a>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                    <a href="index.html" class="nav-link" data-page="index">Главная</a>
+                    <a href="city.html" class="nav-link" data-page="city">В городе</a>
+                    <a href="nature.html" class="nav-link" data-page="nature">За городом</a>
+                    <a href="kids.html" class="nav-link" data-page="kids">С детьми</a>
+                </div>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-jeti-brown hover:text-jeti-light-brown focus:outline-none focus:text-jeti-light-brown">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-jeti-beige border-t border-jeti-sand mobile-menu-animation">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="index.html" class="nav-link-mobile" data-page="index">Главная</a>
+            <a href="city.html" class="nav-link-mobile" data-page="city">В городе</a>
+            <a href="nature.html" class="nav-link-mobile" data-page="nature">За городом</a>
+            <a href="kids.html" class="nav-link-mobile" data-page="kids">С детьми</a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .navbar-blur {
+        backdrop-filter: blur(10px);
+        background-color: rgba(245, 241, 232, 0.9);
+    }
+    
+    .logo-img {
+        height: 2.5rem;
+        width: auto;
+        transition: transform 0.2s ease;
+    }
+    
+    .logo-img:hover {
+        transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+        .logo-img {
+            height: 2rem;
+        }
+    }
+    
+    .nav-link {
+        color: #7A4E1D;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    
+    .nav-link:hover {
+        color: #A67C52;
+    }
+    
+    .nav-link.active {
+        background-color: #7A4E1D;
+        color: white;
+    }
+    
+    .nav-link-mobile {
+        color: #7A4E1D;
+        display: block;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.375rem;
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    
+    .nav-link-mobile:hover {
+        color: #A67C52;
+    }
+    
+    .nav-link-mobile.active {
+        background-color: #7A4E1D;
+        color: white;
+    }
+    
+    .mobile-menu-animation {
+        transition: all 0.3s ease-in-out;
+        max-height: 0;
+        overflow: hidden;
+    }
+    
+    .mobile-menu-animation:not(.hidden) {
+        max-height: 300px;
+    }
+    
+    /* Улучшаем кнопку мобильного меню */
+    #mobile-menu-button {
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+    
+    #mobile-menu-button:active {
+        transform: scale(0.95);
+    }
+</style>
+
+<script>
+    // Set active navigation item based on current page
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPage = document.body.getAttribute('data-page');
+        if (currentPage) {
+            // Desktop navigation
+            const desktopLinks = document.querySelectorAll('.nav-link');
+            desktopLinks.forEach(link => {
+                if (link.getAttribute('data-page') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Mobile navigation
+            const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+            mobileLinks.forEach(link => {
+                if (link.getAttribute('data-page') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
