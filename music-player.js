@@ -3,11 +3,16 @@ class MusicPlayer {
         this.isPlaying = false;
         this.isLoading = false;
         this.audio = null;
-        this.musicUrl = 'https://dl.dropbox.com/scl/fi/eksqgvx1qzbxfg61m0pj9/Nurzhan-Tazhikenov-Adai-agugai.kz_-mp3cut.net.mp3?rlkey=bum8ev273wf82oat04xpe9140&st=4lv1ql6m&dl=0';
+        this.musicUrl = 'https://raw.githubusercontent.com/jeti-aktau/jeti-aktau/671a4de3067fce8ec6af65632d5fcea8d28ac639/Nurzhan-Tazhikenov-Adai-agugai.kz_%20(mp3cut.net).mp3';
         
         // Добавляем crossOrigin атрибут для попытки обхода CORS
         this.audioCrossOrigin = 'anonymous';
         this.trackName = 'Adai - Нуржан Тажикенов';
+        
+        // iOS специфичные флаги
+        this.isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        this.userHasInteracted = false;
+        this.audioContextResumed = false;
         
         this.init();
     }
@@ -16,6 +21,52 @@ class MusicPlayer {
         this.createPlayer();
         this.setupAudio();
         this.attachEvents();
+        
+        // Для iOS добавляем обработчик первого взаимодействия
+        if (this.isIOS) {
+            this.setupIOSInteraction();
+        }
+    }
+
+    setupIOSInteraction() {
+        // Слушаем первое касание/клик для разблокировки аудио на iOS
+        const unlockAudio = () => {
+            if (!this.userHasInteracted) {
+                this.userHasInteracted = true;
+                
+                // Создаем короткий беззвучный звук для разблокировки
+                if (this.audio) {
+                    const currentTime = this.audio.currentTime;
+                    this.audio.volume = 0;
+                    this.audio.play().then(() => {
+                        this.audio.pause();
+                        this.audio.currentTime = currentTime;
+                        this.audio.volume = 0.6;
+                        console.log('iOS аудио разблокировано');
+                    }).catch(e => {
+                        console.warn('Не удалось разблокировать аудио на iOS:', e);
+                    });
+                }
+                
+                // Разблокируем AudioContext для iOS
+                if (this.audioContext && this.audioContext.state === 'suspended') {
+                    this.audioContext.resume().then(() => {
+                        this.audioContextResumed = true;
+                        console.log('iOS AudioContext разблокирован');
+                    });
+                }
+                
+                // Убираем обработчики после первого взаимодействия
+                document.removeEventListener('touchstart', unlockAudio);
+                document.removeEventListener('touchend', unlockAudio);
+                document.removeEventListener('click', unlockAudio);
+            }
+        };
+
+        // Добавляем обработчики для различных событий
+        document.addEventListener('touchstart', unlockAudio, { passive: true });
+        document.addEventListener('touchend', unlockAudio, { passive: true });
+        document.addEventListener('click', unlockAudio, { passive: true });
     }
 
     createPlayer() {
@@ -38,7 +89,7 @@ class MusicPlayer {
                     <div class="eq-bar"></div>
                     <div class="eq-bar"></div>
                 </div>
-                <audio id="musicAudio" preload="metadata" crossorigin="anonymous">
+                <audio id="musicAudio" preload="metadata" crossorigin="anonymous" playsinline>
                     <source src="${this.musicUrl}" type="audio/mpeg">
                     Ваш браузер не поддерживает воспроизведение аудио.
                 </audio>
@@ -103,6 +154,12 @@ class MusicPlayer {
         // Настройка аудио элемента
         this.audio.loop = true;
         this.audio.volume = 0.6; // 60% громкости по умолчанию
+        
+        // iOS специфичные настройки
+        if (this.isIOS) {
+            this.audio.muted = false;
+            this.audio.autoplay = false;
+        }
 
         // Инициализация Web Audio API для анализа
         this.setupAudioAnalyzer();
@@ -258,6 +315,15 @@ class MusicPlayer {
             this.createRippleEffect(e);
         });
 
+        // Для iOS добавляем поддержку touch событий
+        if (this.isIOS) {
+            this.playerElement.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                this.toggle();
+                this.createRippleEffect(e);
+            }, { passive: false });
+        }
+
         // Управление с клавиатуры
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && e.ctrlKey) {
@@ -288,9 +354,38 @@ class MusicPlayer {
     async play() {
         try {
             this.setLoading(true);
+            
+            // Для iOS убеждаемся что пользователь взаимодействовал
+            if (this.isIOS && !this.userHasInteracted) {
+                console.warn('iOS требует взаимодействия пользователя для воспроизведения');
+                this.setLoading(false);
+                return;
+            }
+            
+            // Проверяем готовность аудио
+            if (this.audio.readyState < 2) {
+                console.log('Ожидаем загрузки аудио...');
+                await new Promise((resolve, reject) => {
+                    const timeout = setTimeout(() => {
+                        reject(new Error('Таймаут загрузки аудио'));
+                    }, 10000);
+                    
+                    this.audio.addEventListener('canplay', () => {
+                        clearTimeout(timeout);
+                        resolve();
+                    }, { once: true });
+                });
+            }
+            
+            // Возобновляем AudioContext для iOS
+            if (this.audioContext && this.audioContext.state === 'suspended') {
+                await this.audioContext.resume();
+            }
+            
             await this.audio.play();
             this.isPlaying = true;
             this.setLoading(false);
+            console.log('Воспроизведение началось успешно');
         } catch (error) {
             console.error('Ошибка воспроизведения:', error);
             this.setLoading(false);
@@ -409,6 +504,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Небольшая задержка для полной загрузки страницы
     setTimeout(() => {
         window.musicPlayer = new MusicPlayer();
+        
+        // Дополнительный лог для отладки на мобильных
+        console.log('MusicPlayer инициализирован:', {
+            userAgent: navigator.userAgent,
+            isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
+            audioSupport: !!window.Audio,
+            webAudioSupport: !!(window.AudioContext || window.webkitAudioContext)
+        });
     }, 1000);
 });
 
@@ -416,4 +519,3 @@ document.addEventListener('DOMContentLoaded', () => {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = MusicPlayer;
 }
-
