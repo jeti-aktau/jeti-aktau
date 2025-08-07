@@ -3,7 +3,7 @@ class MusicPlayer {
         this.isPlaying = false;
         this.isLoading = false;
         this.audio = null;
-        this.musicUrl = 'https://dl.dropbox.com/scl/fi/eksqgvx1qzbxfg61m0pj9/Nurzhan-Tazhikenov-Adai-agugai.kz_-mp3cut.net.mp3?rlkey=bum8ev273wf82oat04xpe9140&st=0s62nwba&dl=0';
+        this.musicUrl = 'https://github.com/jeti-aktau/jeti-aktau/blob/671a4de3067fce8ec6af65632d5fcea8d28ac639/Nurzhan-Tazhikenov-Adai-agugai.kz_%20(mp3cut.net).mp3';
         
         // Добавляем crossOrigin атрибут для попытки обхода CORS
         this.audioCrossOrigin = 'anonymous';
@@ -416,3 +416,4 @@ document.addEventListener('DOMContentLoaded', () => {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = MusicPlayer;
 }
+
