@@ -41,7 +41,7 @@ class MusicPlayer {
                     this.audio.play().then(() => {
                         this.audio.pause();
                         this.audio.currentTime = currentTime;
-                        this.audio.volume = 0.6;
+                        this.audio.volume = 0.4;
                         console.log('iOS аудио разблокировано');
                     }).catch(e => {
                         console.warn('Не удалось разблокировать аудио на iOS:', e);
@@ -153,7 +153,7 @@ class MusicPlayer {
     setupAudio() {
         // Настройка аудио элемента
         this.audio.loop = true;
-        this.audio.volume = 0.6; // 60% громкости по умолчанию
+        this.audio.volume = 0.4; // 60% громкости по умолчанию
         
         // iOS специфичные настройки
         if (this.isIOS) {
@@ -519,3 +519,4 @@ document.addEventListener('DOMContentLoaded', () => {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = MusicPlayer;
 }
+
