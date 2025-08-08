@@ -330,6 +330,174 @@
             0% { bottom: -100%; }
             50%, 100% { bottom: 100%; }
         }
+
+        /* Filter buttons */
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #E6D7C3;
+            background: transparent;
+            color: #7A4E1D;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+        .filter-btn:hover {
+            background: #E6D7C3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(122, 78, 29, 0.15);
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #7A4E1D 0%, #A67C52 100%);
+            color: white;
+            border-color: #7A4E1D;
+            box-shadow: 0 6px 15px rgba(122, 78, 29, 0.25);
+        }
+
+        /* Load More Button */
+        .jeti-load-more-btn {
+            position: relative;
+            display: inline-block;
+            padding: 14px 32px;
+            color: #7A4E1D;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #F5F1E8 0%, #E6D7C3 100%);
+            border: 2px solid #A67C52;
+            cursor: pointer;
+        }
+        .jeti-load-more-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #A67C52 0%, #7A4E1D 100%);
+            color: white;
+            box-shadow: 0 12px 25px rgba(122, 78, 29, 0.3);
+        }
+        .jeti-load-more-btn:active {
+            transform: translateY(0);
+        }
+        .jeti-load-more-btn span {
+            position: absolute;
+            display: block;
+        }
+        .jeti-load-more-btn span:nth-child(1) {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #A67C52);
+            animation: jeti-load-anim-1 1.6s linear infinite;
+        }
+        @keyframes jeti-load-anim-1 {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+        .jeti-load-more-btn span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #A67C52);
+            animation: jeti-load-anim-2 1.6s linear infinite;
+            animation-delay: 0.4s;
+        }
+        @keyframes jeti-load-anim-2 {
+            0% { top: -100%; }
+            50%, 100% { top: 100%; }
+        }
+        .jeti-load-more-btn span:nth-child(3) {
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(270deg, transparent, #A67C52);
+            animation: jeti-load-anim-3 1.6s linear infinite;
+            animation-delay: 0.8s;
+        }
+        @keyframes jeti-load-anim-3 {
+            0% { right: -100%; }
+            50%, 100% { right: 100%; }
+        }
+        .jeti-load-more-btn span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(360deg, transparent, #A67C52);
+            animation: jeti-load-anim-4 1.6s linear infinite;
+            animation-delay: 1.2s;
+        }
+        @keyframes jeti-load-anim-4 {
+            0% { bottom: -100%; }
+            50%, 100% { bottom: 100%; }
+        }
+
+        /* Place cards styles (copied from city.html) */
+        .place-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .place-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .place-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .place-content {
+            padding: 20px;
+        }
+        .place-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        .place-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .place-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-map-location {
+            color: #7A4E1D;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-map-location:hover {
+            border-bottom-color: #7A4E1D;
+        }
+        .map-icon {
+            width: 16px;
+            height: 16px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%237A4E1D"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>') center/contain no-repeat;
+        }
     </style>
 </head>
 <body class="font-inter bg-jeti-beige text-gray-800" data-page="index">
@@ -521,6 +689,52 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Places Section -->
+        <section class="mt-16 mb-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold text-jeti-brown mb-4">
+                        🌟 Все места Актау
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Полный список всех интересных мест, ресторанов, развлечений и достопримечательностей города и окрестностей
+                    </p>
+                </div>
+                
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <button onclick="filterPlaces('all')" class="filter-btn active" data-filter="all">
+                        Все места
+                    </button>
+                    <button onclick="filterPlaces('city')" class="filter-btn" data-filter="city">
+                        В городе
+                    </button>
+                    <button onclick="filterPlaces('nature')" class="filter-btn" data-filter="nature">
+                        За городом
+                    </button>
+                    <button onclick="filterPlaces('kids')" class="filter-btn" data-filter="kids">
+                        С детьми
+                    </button>
+                </div>
+
+                <!-- Places Grid -->
+                <div id="places-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Places will be loaded here by JavaScript -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center">
+                    <button id="load-more-btn" onclick="loadMorePlaces()" class="jeti-load-more-btn hidden">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Показать больше
+                    </button>
                 </div>
             </div>
         </section>
@@ -721,6 +935,7 @@
     <script src="navbar-loader.js"></script>
     <script src="footer-loader.js"></script>
     <script src="script.js"></script>
+    <script src="all-places.js"></script>
     <script src="music-player.js"></script>
 </body>
 </html>
