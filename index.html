@@ -546,7 +546,7 @@
                             <span></span>
                             Посмотреть меню
                         </a>
-                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -591,7 +591,7 @@
                     </div>
                     </div>
                 </div>
-            </div>
+                        </div>
                     </div>
                     
         <!-- Useful Information Section -->
@@ -599,7 +599,7 @@
             <div class="max-w-4xl mx-auto">
                 <!-- Useful Apps -->
                 <div class="bg-white rounded-2xl shadow-lg mb-6 overflow-hidden">
-                    <button onclick="toggleSection('apps')" class="expandable-button w-full px-8 py-6 flex items-center justify-between bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-300">
+                    <button onclick="toggleSection('apps')" class="expandable-button w-full px-8 py-6 flex items-center justify-between bg-gradient-to-r from-jeti-light-brown to-jeti-brown text-white hover:from-jeti-brown hover:to-amber-800 transition-all duration-300">
                         <div class="flex items-center space-x-3">
                             <span class="text-2xl">🧾</span>
                             <h3 class="text-xl font-bold">ПОЛЕЗНЫЕ ПРИЛОЖЕНИЯ</h3>
@@ -608,7 +608,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div id="apps-content" class="expandable-content hidden px-8 py-6 bg-gray-50">
+                    <div id="apps-content" class="expandable-content hidden px-8 py-6 bg-jeti-beige">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div class="flex items-center space-x-3">
@@ -644,11 +644,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
+                    </div>
+                    
                 <!-- Important Information -->
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <button onclick="toggleSection('important')" class="expandable-button w-full px-8 py-6 flex items-center justify-between bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 transition-all duration-300">
+                    <button onclick="toggleSection('important')" class="expandable-button w-full px-8 py-6 flex items-center justify-between bg-gradient-to-r from-amber-700 to-red-700 text-white hover:from-red-700 hover:to-red-800 transition-all duration-300">
                         <div class="flex items-center space-x-3">
                             <span class="text-2xl">⚠️</span>
                             <h3 class="text-xl font-bold">ВАЖНО ЗНАТЬ</h3>
@@ -657,30 +657,30 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div id="important-content" class="expandable-content hidden px-8 py-6 bg-red-50">
+                    <div id="important-content" class="expandable-content hidden px-8 py-6 bg-orange-50">
                         <div class="space-y-4">
-                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-amber-600">
                                 <span class="text-xl">🏊‍♂️</span>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Купание в неположенных местах</h4>
                                     <p class="text-gray-600">— штраф</p>
                                 </div>
                             </div>
-                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-amber-600">
                                 <span class="text-xl">📸</span>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Фото военных объектов</h4>
                                     <p class="text-gray-600">— запрещено</p>
                                 </div>
                             </div>
-                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-amber-600">
                                 <span class="text-xl">🚫</span>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Вайпы, CBD, марихуана</h4>
                                     <p class="text-gray-600">— уголовное наказание</p>
                                 </div>
                             </div>
-                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border-l-4 border-amber-600">
                                 <span class="text-xl">💰</span>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Штрафы</h4>
@@ -703,8 +703,8 @@
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                         Полный список всех интересных мест, ресторанов, развлечений и достопримечательностей города и окрестностей
                     </p>
-                </div>
-                
+                    </div>
+                    
                 <!-- Filter Buttons -->
                 <div class="flex flex-wrap justify-center gap-3 mb-8">
                     <button onclick="filterPlaces('all')" class="filter-btn active" data-filter="all">
@@ -719,12 +719,12 @@
                     <button onclick="filterPlaces('kids')" class="filter-btn" data-filter="kids">
                         С детьми
                     </button>
-                </div>
-
+                    </div>
+                    
                 <!-- Places Grid -->
                 <div id="places-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                     <!-- Places will be loaded here by JavaScript -->
-                </div>
+                    </div>
 
                 <!-- Load More Button -->
                 <div class="text-center">
@@ -817,14 +817,14 @@
                             <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
                                 <div class="phrase-ru text-white text-sm mb-2 opacity-90">Извините</div>
                                 <div class="phrase-kz text-jeti-sand text-lg font-bold">Кешіріңіз</div>
-                            </div>
-                            
+                    </div>
+                    
                             <div class="phrase-card bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all duration-300">
                                 <div class="phrase-ru text-white text-sm mb-2 opacity-90">Помогите</div>
                                 <div class="phrase-kz text-jeti-sand text-lg font-bold">Көмектесіңіз</div>
                             </div>
-                        </div>
-                        
+                    </div>
+                    
                         <div class="text-center mt-8">
                             <p class="text-jeti-sand text-sm opacity-80">
                                 🎯 Произносите фразы медленно и четко - местные жители всегда рады помочь!
