@@ -1,6 +1,6 @@
 // Полноэкранный просмотр меню внутри сайта без раскрытия прямой ссылки
 (function(){
-  const MENU_URL = 'https://drive.google.com/file/d/1trO0-qArSyhjIvJLvdDF-_kGbp1W_2Y5/preview';
+  const MENU_URL = 'https://raw.githubusercontent.com/jeti-aktau/jeti-aktau/63053e02b4b462f4b9154d19dd5622024a3c0cc1/russian.pdf#toolbar=0&navpanes=0&scrollbar=0';
 
   function ensureOverlay(){
     if (document.getElementById('menuOverlay')) return;
@@ -82,5 +82,6 @@
   // Экспорт на всякий случай
   window.JETI_MenuOverlay = { show: showOverlay, hide: hideOverlay };
 })();
+
 
 
