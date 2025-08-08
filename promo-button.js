@@ -21,6 +21,7 @@
         // запасной якорь
         window.location.href = 'index.html#featured-restaurant';
       }
+      if (window.launchConfetti) { window.launchConfetti(6000); }
     });
   }
 
