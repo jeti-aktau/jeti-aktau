@@ -1,6 +1,6 @@
 // Полноэкранный просмотр меню внутри сайта без раскрытия прямой ссылки
 (function(){
-  const MENU_URL = 'https://drive.google.com/file/d/1ac_7aQSnDqLaScr6kyJdaU_HtkbNBfHi/preview';
+  const MENU_URL = 'https://drive.google.com/file/d/1trO0-qArSyhjIvJLvdDF-_kGbp1W_2Y5/preview';
 
   function ensureOverlay(){
     if (document.getElementById('menuOverlay')) return;
