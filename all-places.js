@@ -177,6 +177,14 @@ const allPlaces = [
         address: '4-й микрорайон, 74',
         mapLink: 'https://go.2gis.com/ZOOKV'
     },
+    {
+        category: 'city',
+        title: 'ТЦ Saya Park',
+        description: 'Торговый центр',
+        image: 'https://static.tildacdn.com/tild6335-3535-4335-b239-636432353537/__2025-08-07_141616.png',
+        address: '10-й микрорайон, 3',
+        mapLink: 'https://go.2gis.com/E8Fya'
+    },
     
     // Kids - Entertainment
     {
@@ -244,6 +252,24 @@ const allPlaces = [
         image: 'https://static.tildacdn.com/tild6135-6335-4035-b762-643836623666/__2025-08-07_161616.png',
         address: '1 мкр, санаторий Шагала',
         mapLink: 'https://go.2gis.com/BgDo4'
+    },
+    
+    // Kids - Hotels for kids
+    {
+        category: 'kids',
+        title: 'Bopetime',
+        description: 'Няня-центр',
+        image: 'https://static.tildacdn.com/tild3330-6263-4265-b361-626466653363/869.jpg',
+        address: 'ЖК Green Park 17-й микрорайон, 7',
+        mapLink: 'https://go.2gis.com/T9n0G'
+    },
+    {
+        category: 'kids',
+        title: 'Супер няня',
+        description: 'Няня-центр',
+        image: 'https://static.tildacdn.com/tild3037-3434-4032-a438-333535303362/fmt_81_24_shuttersto.webp',
+        address: 'ЖК Триумф 16-й микрорайон, 41',
+        mapLink: 'https://go.2gis.com/O63yH'
     },
     
     // Nature - Wonders
@@ -394,6 +420,112 @@ const allPlaces = [
         image: 'https://static.tildacdn.com/tild3163-3336-4434-b434-643037643135/__2025-08-07_171420.png',
         address: '+7 701 879 51 55',
         mapLink: 'https://go.2gis.com/RPGzy'
+    },
+    
+    // Nature - Seaside houses & bases (from city.html)
+    {
+        category: 'nature',
+        title: 'Caspiy house aktau',
+        description: 'Базы отдыха',
+        image: 'https://static.tildacdn.com/tild3038-6266-4736-a434-633432353833/__2025-08-08_131222.png',
+        address: '8(705) 238 1006',
+        mapLink: 'https://go.2gis.com/El09l'
+    },
+    {
+        category: 'nature',
+        title: 'Teniz zhagaluyi',
+        description: 'База отдыха',
+        image: 'https://static.tildacdn.com/tild3339-3363-4539-a265-633239356135/__2025-08-08_131358.png',
+        address: '8(776) 748 8881, 8(707) 020 9048',
+        mapLink: 'https://go.2gis.com/NzVX4'
+    },
+    {
+        category: 'nature',
+        title: 'Домик у моря Ocean',
+        description: 'База отдыха',
+        image: 'https://static.tildacdn.com/tild6332-6665-4564-a161-343538346363/__2025-08-08_131511.png',
+        address: '8(700)340 2020',
+        mapLink: 'https://go.2gis.com/9zWHP'
+    },
+    {
+        category: 'nature',
+        title: 'Нур',
+        description: 'База отдыха',
+        image: 'https://static.tildacdn.com/tild3431-6635-4639-a635-653037656439/__2025-08-08_132933.png',
+        address: '8(771) 497 2727',
+        mapLink: 'https://go.2gis.com/sRqrR'
+    },
+    {
+        category: 'nature',
+        title: 'Аквамарин',
+        description: 'Пляжный отель',
+        image: 'https://static.tildacdn.com/tild6533-6335-4434-b664-346364396339/__2025-08-08_133102.png',
+        address: '8(707) 649 4985',
+        mapLink: 'https://go.2gis.com/ZTygt'
+    },
+    {
+        category: 'nature',
+        title: 'Dom u morya',
+        description: 'База отдыха',
+        image: 'https://static.tildacdn.com/tild3336-3833-4530-b661-653864336537/__2025-08-08_133206.png',
+        address: '8(708) 526 8813',
+        mapLink: 'https://go.2gis.com/b4nnQ'
+    },
+    {
+        category: 'nature',
+        title: 'Caspian Coast',
+        description: 'Базы отдыха',
+        image: 'https://static.tildacdn.com/tild6565-3432-4661-a361-613436373962/__2025-08-08_133331.png',
+        address: '8(778) 679 0183, 8(701) 136 5872',
+        mapLink: 'https://go.2gis.com/dKweV'
+    },
+    {
+        category: 'nature',
+        title: "De'Villa Aktau",
+        description: 'База отдыха',
+        image: 'https://static.tildacdn.com/tild3665-3330-4566-a164-646637356331/__2025-08-08_133450.png',
+        address: '8(777) 120 4750',
+        mapLink: 'https://go.2gis.com/5VaPA'
+    },
+    {
+        category: 'nature',
+        title: 'Caspiy Life',
+        description: 'База отдыха',
+        image: 'https://static.tildacdn.com/tild3932-3638-4933-b165-383134616139/__2025-08-08_133559.png',
+        address: '8(702)128 0686, 8(747)128 0686',
+        mapLink: 'https://go.2gis.com/PllUc'
+    },
+    {
+        category: 'nature',
+        title: 'Saura Aktau Yurting',
+        description: 'База отдыха',
+        image: 'https://static.tildacdn.com/tild6562-3865-4062-a561-616339323966/__2025-08-08_133750.png',
+        address: '8(701) 376 6262',
+        mapLink: 'https://go.2gis.com/lprBN'
+    },
+    {
+        category: 'nature',
+        title: 'Shahristan',
+        description: 'Гостиничный комплекс',
+        image: 'https://static.tildacdn.com/tild3633-3465-4161-a531-616563623334/__2025-08-08_133848.png',
+        address: '8(747) 300 4447, 8(747) 900 4447',
+        mapLink: 'https://go.2gis.com/XlOEU'
+    },
+    {
+        category: 'nature',
+        title: 'Sulo Bautino',
+        description: 'Гостиницы',
+        image: 'https://static.tildacdn.com/tild6236-3730-4865-b063-643333396437/__2025-08-08_134008.png',
+        address: '8 (701) 908 3309',
+        mapLink: 'https://go.2gis.com/wn5rS'
+    },
+    {
+        category: 'nature',
+        title: 'Crystal',
+        description: 'База отдыха',
+        image: 'https://static.tildacdn.com/tild3563-3166-4865-a335-373034386133/__2025-08-08_134058.png',
+        address: '8(701) 778 8812',
+        mapLink: 'https://go.2gis.com/p1pFl'
     }
 ];
 
