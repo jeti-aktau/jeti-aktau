@@ -248,6 +248,88 @@
             transform: translateY(-1px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
+
+        /* CTA button style (JETI) */
+        .jeti-cta-btn {
+            position: relative;
+            display: inline-block;
+            padding: 16px 28px;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 800;
+            border-radius: 9999px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            background: linear-gradient(135deg, #A67C52 0%, #7A4E1D 100%);
+            box-shadow: 0 15px 35px rgba(122, 78, 29, 0.35), 0 5px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(230, 215, 195, 0.35);
+            backdrop-filter: blur(6px);
+        }
+        .jeti-cta-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            background: linear-gradient(135deg, #B78961 0%, #8A5A27 100%);
+            box-shadow: 0 20px 45px rgba(122, 78, 29, 0.45), 0 8px 18px rgba(0,0,0,0.12);
+        }
+        .jeti-cta-btn:active {
+            transform: translateY(0) scale(0.99);
+        }
+        .jeti-cta-btn span {
+            position: absolute;
+            display: block;
+        }
+        .jeti-cta-btn span:nth-child(1) {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #E6D7C3);
+            animation: jeti-anim-1 1.4s linear infinite;
+        }
+        @keyframes jeti-anim-1 {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+        .jeti-cta-btn span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #E6D7C3);
+            animation: jeti-anim-2 1.4s linear infinite;
+            animation-delay: 0.35s;
+        }
+        @keyframes jeti-anim-2 {
+            0% { top: -100%; }
+            50%, 100% { top: 100%; }
+        }
+        .jeti-cta-btn span:nth-child(3) {
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(270deg, transparent, #E6D7C3);
+            animation: jeti-anim-3 1.4s linear infinite;
+            animation-delay: 0.7s;
+        }
+        @keyframes jeti-anim-3 {
+            0% { right: -100%; }
+            50%, 100% { right: 100%; }
+        }
+        .jeti-cta-btn span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(360deg, transparent, #E6D7C3);
+            animation: jeti-anim-4 1.4s linear infinite;
+            animation-delay: 1.05s;
+        }
+        @keyframes jeti-anim-4 {
+            0% { bottom: -100%; }
+            50%, 100% { bottom: 100%; }
+        }
     </style>
 </head>
 <body class="font-inter bg-jeti-beige text-gray-800" data-page="index">
@@ -289,9 +371,13 @@
                     Откройте вкус Актау с лучшим рестораном города
                     </p>
                     <div class="flex justify-center">
-                        <button class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 px-8 rounded-full text-lg md:text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl">
-                            ЗАПЛАНИРУЙ СВОЕ ПУТЕШЕСТВИЕ ↗
-                        </button>
+                        <a href="#featured-restaurant" class="jeti-cta-btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Посмотреть меню
+                        </a>
                     </div>
             </div>
         </div>
@@ -536,7 +622,7 @@
         </section>
 
         <!-- Featured Restaurant Section -->
-        <section class="mt-16">
+        <section id="featured-restaurant" class="mt-16">
             <div class="bg-gradient-to-br from-jeti-brown to-jeti-light-brown text-white rounded-2xl shadow-xl p-8 md:p-12">
                 <div class="max-w-4xl mx-auto text-center">
                     <div class="text-6xl mb-6 animate-pulse-gentle">🍽️</div>
